@@ -1,0 +1,49 @@
+.nav-bar {
+    position: fixed;
+    top: 44px;
+    left: 0;
+    z-index: 30;
+    height: 35px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    overflow: hidden;
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 4px;
+        right: -3px;
+        height: 27px;
+        width: 5px;
+        background: #eaeaea;
+        box-shadow: -1px 0 6px rgba($color: #000000, $alpha: .25);
+    }
+    .scroll {
+        position: relative;
+        height: 100%;
+        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        .nav-wrapper {
+            display: flex;
+            flex-direction: row;
+            height: 35px;
+            .item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 60px;
+                height: 35px;
+                font-size: 16px;
+                &.current {
+                    color: #ec7a70;
+                }
+            }
+        }
+    }
+}
