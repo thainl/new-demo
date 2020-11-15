@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="info">
-        <span class="source">{{ source }}}</span>
+        <span class="source">{{ source }}</span>
         <span class="date">{{ date }}</span>
     </div>
 </div>
