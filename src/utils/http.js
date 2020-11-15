@@ -1,5 +1,5 @@
 import { config } from './config.js';
-import { randomNum } from './tools.js';
+import { randomNum, formatData } from './tools.js';
 
 // ES6可以通过Symbo类型来定义私有属性/方法
 const doAjax = Symbol('doAjax');
@@ -79,7 +79,7 @@ class HTTP {
 
     o.open(type, url, async);
     type === 'POST' && o.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    o.send(type === 'GET' ? null : tools.formatDatas(data));
+    o.send(type === 'GET' ? null : formatData(data));
 
     t = setTimeout(()=> {
       throw new Error('本次请求已超时，API地址：' + url);

@@ -1,7 +1,8 @@
 import HTTP from '../utils/http';
+import { setPageData } from '../utils/tools';
 
 class Service extends HTTP {
-    getNewsList (type, count) {
+    getNewsList (type, size) {
         return new Promise((resolve, reject) => {
             this.ajax({
                 url: '/Juhe/getNewsList',
@@ -9,8 +10,9 @@ class Service extends HTTP {
                 data: {
                     field: type
                 },
-                success (data) {
-                    resolve(data);
+                success (res) {
+                    const pageData = setPageData(res.result.data, size);
+                    resolve(pageData);
                 },
                 error (err) {
                     reject(err);

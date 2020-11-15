@@ -54,10 +54,6 @@ body, input, textarea, button, select, pre, xmp, tt, code, kbd, samp {
     line-height: 1.5;
 }
 
-body, input, textarea, button, select, pre, xmp, tt, code, kbd, samp, h1, h2, h3, h4 ,h5, h6 {
-    font-family: serif;font-family: tahoma, arial, "Hiragino Sans GB", simsun, sans-serlf;
-}
-
 img, object, input, textarea, button, select {
     vertical-align: middle;
 }
@@ -97,7 +93,7 @@ html {
 }
 
 body {
-    font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif;
+    font-family:'STHeiti', 'Microsoft YaHei', 'Helvetica', 'Arial', sans-serif;
     color: #333;
     font-size: .28em;
     line-height: 1;

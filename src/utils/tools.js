@@ -14,6 +14,7 @@ function randomNum() {
     return num;
 }
 
+// 模板变量替换
 function tplReplace(tpl, tplObject) {
     return tpl().replace(/\{\{(.*?)\}\}/g, ($, $1) => tplObject[$1.trim()]);
 }
@@ -26,4 +27,14 @@ function scrollToTop() {
     }
 }
 
-export { formatData, randomNum, tplReplace, scrollToTop };
+// 把获取到的新闻数据分页
+function setPageData(data, size) {
+    const pageData = [];
+    let index = 0;
+    while(index < data.length) {
+        pageData.push(data.slice(index, index += size));
+    }
+    return pageData;
+}
+
+export { formatData, randomNum, tplReplace, scrollToTop, setPageData };
