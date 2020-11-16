@@ -62,8 +62,9 @@ module.exports = {
                         loader: "url-loader",
                         options: {
                             limit: 1024,
-                            name: "[hash:10].[ext]",
-                            outputPath: "img",
+                            name: "[name][hash:8].[ext]",
+                            outputPath: 'img',
+                            publicPath: '/img/',
                             esModule: false,
                         },
                     },

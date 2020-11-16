@@ -1,0 +1,21 @@
+.more-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    margin-bottom: 10px;
+    color: #999;
+    font-size: 14px;
+
+    &.loading::before {
+        content: '';
+        display: block;
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+        background-image: url('../../assets/img/s_loading.gif');
+        background-repeat: no-repeat;
+        background-size: 15px 15px;
+        background-position: 0 0;
+    }
+}

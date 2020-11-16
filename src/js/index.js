@@ -6,12 +6,14 @@ import PageLoading from '../components/PageLoading';
 import { news_type } from '../utils/data';
 import service from '../services/index.js';
 import { reachToBottom } from '../utils/tools.js';
+import MoreLoading from '../components/MoreLoading/index.js';
 
 
 ;((doc)=>{
     const oApp = doc.querySelector('#app');
     let oNewsListWrapper = null;
-
+    let loadMoreTimer = null;
+    let setNewsListTimer = null;
     const config = {
         type: 'top',
         size: 10,
@@ -37,6 +39,7 @@ import { reachToBottom } from '../utils/tools.js';
     function setType(type) {
         config.type = type;
         config.pageNum = 0; // 当前页数初始化为0
+        config.isLoadingMore = false; // 重置锁
         oNewsListWrapper.innerHTML = ''; // 每次改变分类清空列表
         setNewsList();
     }
@@ -44,6 +47,7 @@ import { reachToBottom } from '../utils/tools.js';
     // 获取新闻列表数据
     async function setNewsList() {
         const { type, size, pageNum } = config;
+        clearTimeout(setNewsListTimer)
         if(newsData[type]) {
             renderNewsList(newsData[type][pageNum]); // 从缓冲池里取出数据
             return;
@@ -51,7 +55,7 @@ import { reachToBottom } from '../utils/tools.js';
             oNewsListWrapper.innerHTML = PageLoading.tpl(); // 打开loading图标
             // 获取数据
             newsData[type] = await service.getNewsList(type, size);
-            setTimeout(() => {
+            setNewsListTimer = setTimeout(() => {
                 oNewsListWrapper.innerHTML = '';
                 renderNewsList(newsData[type][pageNum]);
             }, 1000);
@@ -70,11 +74,19 @@ import { reachToBottom } from '../utils/tools.js';
     function getMoreList() {
         // 加锁，不能频繁触发
         if(!config.isLoadingMore) {
+            clearTimeout(loadMoreTimer);
             config.isLoadingMore = true;
-            console.log('reach bottom');
-            setTimeout(() => {
-                config.isLoadingMore = false;
-            }, 3000);
+            config.pageNum ++; // 页数+1
+            if(config.pageNum >= newsData[config.type].length) {
+                MoreLoading.add(oNewsListWrapper, false); // loading 提示已经加载全部
+            }else {
+                MoreLoading.add(oNewsListWrapper, true); // loading 提示加载动画图标
+                loadMoreTimer = setTimeout(() => {
+                    renderNewsList(newsData[config.type][config.pageNum]);
+                    MoreLoading.remove(oNewsListWrapper); // 列表加载完成，移除加载提示
+                    config.isLoadingMore = false;
+                }, 1000);
+            }
         }
     }
 
