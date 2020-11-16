@@ -1,0 +1,1 @@
+<span class="follow iconfont {{ star }}"></span>

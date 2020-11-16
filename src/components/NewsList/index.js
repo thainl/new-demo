@@ -5,7 +5,7 @@ import item2Tpl from "./item2.tpl";
 import item3Tpl from "./item3.tpl";
 import "./index.scss";
 
-import { tplReplace } from "../../utils/tools";
+import { getNewsItemNode, tplReplace } from "../../utils/tools";
 
 export default {
     name: "NewsList",
@@ -46,4 +46,18 @@ export default {
             };
         });
     },
+    // 表单列表项点击事件，点击进入详情页
+    bindEvent(oListWrapper, setCurrentNews) {
+        oListWrapper.addEventListener('click', this._goDetail.bind(this, setCurrentNews));
+    },
+    _goDetail(setCurrentNews, e) {
+        // 获取被点击的新闻子项
+        const target = getNewsItemNode(e.target);
+        setCurrentNews({
+            index: target.dataset.index,
+            pageNum: target.dataset.page
+        })
+        // 地址跳转，带上当前路径方便返回
+        location.href = `detail.html?path=${location.pathname}`;
+    }
 };

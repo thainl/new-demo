@@ -32,6 +32,7 @@ import MoreLoading from '../components/MoreLoading/index.js';
     function bindEvent() {
         // 表单分类导航的点击事件
         NavBar.bindEvent(setType);
+        NewsList.bindEvent(oNewsListWrapper, setCurrentNews);
         window.addEventListener('scroll', reachToBottom.bind(null, getMoreList));
     }
 
@@ -88,6 +89,12 @@ import MoreLoading from '../components/MoreLoading/index.js';
                 }, 1000);
             }
         }
+    }
+
+    // 设置当前展示详情的新闻
+    function setCurrentNews({index, pageNum}) {
+        const currentNews = newsData[config.type][pageNum][index];
+        localStorage.setItem('currentNews', JSON.stringify(currentNews));
     }
 
     function render() {

@@ -78,6 +78,7 @@ function getScrollOffset() {
     return {x, y};
 }
 
+// 检测是否滚动到底部
 function reachToBottom(callback) {
     const scrollY = getScrollOffset().y; // 页面滚动的距离
     const viewportH = getViewportOffset().h; // 视口高度
@@ -87,4 +88,22 @@ function reachToBottom(callback) {
     }
 }
 
-export { formatData, randomNum, tplReplace, scrollToTop, setPageData, reachToBottom };
+// 获取新闻列表项的节点
+function getNewsItemNode(target) {
+    while(target) {
+        if (target.className.split(' ')[0].trim() === 'news-item') {
+            return target;
+        }
+        target = target.parentNode
+    }
+}
+
+// 获取路由参数的值
+function getUrlQueryValue(key) {
+    // 字符串开头或者&符号开头，加上name变量的内容，再加上任意个不含&的字符，以&或字符串结尾
+    const reg = new RegExp(`(^|&)${key}=([^&]*)(&|$)`, 'i');
+    const res = location.search.slice(1).match(reg); // 去掉开头的?再进行匹配
+    return res === null ? res : decodeURIComponent(res[2]);
+}
+
+export { formatData, randomNum, tplReplace, scrollToTop, setPageData, reachToBottom, getNewsItemNode, getUrlQueryValue, getDocumentOffset };

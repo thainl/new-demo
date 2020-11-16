@@ -4,6 +4,11 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>新闻详情</title>
+        <script>
+            if(!localStorage.getItem('currentNews')) {
+                location.href="/";
+            }
+        </script>
     </head>
     <body>
         <div id="app" class="app"></div>

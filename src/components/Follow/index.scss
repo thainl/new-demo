@@ -1,0 +1,14 @@
+.follow {
+    position: fixed;
+    top: 8px;
+    right: 10px;
+    z-index: 100;
+    font-size: 26px;
+    transition: color .3s;
+    &.icon-collection {
+        color: #fff;
+    }
+    &.icon-collection-fill {
+        color: #ffd700;
+    }
+}
