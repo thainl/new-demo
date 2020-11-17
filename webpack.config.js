@@ -88,7 +88,7 @@ module.exports = {
     },
     plugins: [
         // 混淆js
-        new uglify(),
+        // new uglify(),
         // 处理html
         new HtmlWebpackPlugin({
             minify: {
