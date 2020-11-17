@@ -39,7 +39,6 @@ export default {
         dom.addEventListener('transitionend', this._handleTransitioned.bind(this, dom, duration, callback));
     },
     _handleTransitioned(dom, duration, callback) {
-        console.log(callback);
         if(dom.style.opacity == '0'){
             this._remove();
         }else if(dom.style.opacity == '1') {

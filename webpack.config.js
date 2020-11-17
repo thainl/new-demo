@@ -20,6 +20,7 @@ const commonCssLoader = [
 
 module.exports = {
     mode: "development",
+    // mode: "production",
     entry: {
         index: path.resolve(__dirname, "./src/js/index.js"),
         detail: path.resolve(__dirname, "./src/js/detail.js"),
@@ -87,7 +88,7 @@ module.exports = {
     },
     plugins: [
         // 混淆js
-        // new uglify(),
+        new uglify(),
         // 处理html
         new HtmlWebpackPlugin({
             minify: {
@@ -142,11 +143,12 @@ module.exports = {
         // 启用gzip压缩
         compress: true,
         // 端口号
-        port: 5000,
+        port: 3002,
         // 域名
         host: 'localhost',
     },
     devtool: 'source-map',
+    // devtool: 'hidden-source-map',
     // 优化，禁止压缩 最小化
     optimization: {
         minimize: false

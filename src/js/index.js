@@ -20,6 +20,7 @@ import ErrorTip from '../components/ErrorTip/index.js';
         size: 10,
         pageNum: 0, // 当前页数
         isLoadingMore: false, // 列表是否在加载更多
+        is404Error: false,
     }
 
     const newsData = {}; // 存放各类新闻列表
@@ -33,8 +34,8 @@ import ErrorTip from '../components/ErrorTip/index.js';
     function bindEvent() {
         // 表单分类导航的点击事件
         NavBar.bindEvent(setType);
-        NewsList.bindEvent(oNewsListWrapper, setCurrentNews);
-        window.addEventListener('scroll', reachToBottom.bind(null, getMoreList));
+        !config.is404Error && NewsList.bindEvent(oNewsListWrapper, setCurrentNews);
+        !config.is404Error && window.addEventListener('scroll', reachToBottom.bind(null, getMoreList));
     }
 
     // 设置当前新闻列表分类
@@ -61,6 +62,7 @@ import ErrorTip from '../components/ErrorTip/index.js';
             } catch (error) {
                 if(error == 404) {
                     oNewsListWrapper.innerHTML = ErrorTip.tpl('请求出错');
+                    config.is404Error = true;
                     return;
                 }
             }
