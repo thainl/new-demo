@@ -4,6 +4,9 @@ import NewsList from '../components/NewsList/index.js';
 import { reachToBottom, setPageData, getDocumentOffset } from '../utils/tools';
 import PageLoading from '../components/PageLoading/index.js';
 import MoreLoading from '../components/MoreLoading/index.js';
+import ClearFollow from '../components/ClearFollow/index.js';
+import NoDataTip from '../components/NoDataTip/index.js';
+import Toast from '../components/Toast/index.js';
 
 ;((doc) => {
     const oApp = doc.querySelector('#app');
@@ -19,12 +22,13 @@ import MoreLoading from '../components/MoreLoading/index.js';
     const newsData = setPageData(followedList, config.size); // 分页后的收藏列表
     const init = async() => {
         render();
-        await initNewsList();
+        followedList.length && await initNewsList();
         bindEvent();
     }
 
     function bindEvent() {
-        NewsList.bindEvent(oNewsListWrapper, setCurrentNews);
+        followedList.length && NewsList.bindEvent(oNewsListWrapper, setCurrentNews);
+        ClearFollow.bindEvent(doClearFollowedList);
         window.addEventListener('scroll', reachToBottom.bind(null, getMoreList));
     }
 
@@ -68,6 +72,14 @@ import MoreLoading from '../components/MoreLoading/index.js';
         localStorage.setItem('currentNews', JSON.stringify(currentNews));
     }
 
+    function doClearFollowedList() {
+        const isConfirm = window.confirm('确定清空收藏？');
+        if(isConfirm) {
+            localStorage.removeItem('followedList');
+            Toast.toast('收藏已全部删除', 1000, ()=>{ location.reload() })
+        }
+    }
+
     function render() {
         const headerTpl = Header.tpl({
             url: '/',
@@ -76,7 +88,15 @@ import MoreLoading from '../components/MoreLoading/index.js';
             showRightIcon: false
         })
         const newsListWrapperTpl = NewsList.wrapperTpl(1.76);
-        oApp.innerHTML += (headerTpl + newsListWrapperTpl);
+        let myTpl = '';
+        if(followedList.length) {
+            // 收藏列表不为空
+            myTpl = newsListWrapperTpl + ClearFollow.tpl();
+        }else {
+            // 收藏列表为空
+            myTpl = NoDataTip.tpl();
+        }
+        oApp.innerHTML += (headerTpl + myTpl);
         oNewsListWrapper = oApp.querySelector('.news-list');
     }
     init();

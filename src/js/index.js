@@ -7,6 +7,7 @@ import { news_type } from '../utils/data';
 import service from '../services/index.js';
 import { reachToBottom } from '../utils/tools.js';
 import MoreLoading from '../components/MoreLoading/index.js';
+import ErrorTip from '../components/ErrorTip/index.js';
 
 
 ;((doc)=>{
@@ -55,7 +56,14 @@ import MoreLoading from '../components/MoreLoading/index.js';
         }else {
             oNewsListWrapper.innerHTML = PageLoading.tpl(); // 打开loading图标
             // 获取数据
-            newsData[type] = await service.getNewsList(type, size);
+            try {
+                newsData[type] = await service.getNewsList(type, size);
+            } catch (error) {
+                if(error == 404) {
+                    oNewsListWrapper.innerHTML = ErrorTip.tpl('请求出错');
+                    return;
+                }
+            }
             setNewsListTimer = setTimeout(() => {
                 oNewsListWrapper.innerHTML = '';
                 renderNewsList(newsData[type][pageNum]);

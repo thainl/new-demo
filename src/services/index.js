@@ -15,7 +15,7 @@ class Service extends HTTP {
                     resolve(pageData);
                 },
                 error (err) {
-                    reject(err);
+                    reject(404);
                 }
             })
         })

@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import { getUrlQueryValue } from '../utils/tools.js';
 import Iframe from '../components/Iframe/index.js';
 import Follow from '../components/Follow/index.js';
+import Toast from '../components/Toast/index.js';
 ;((doc)=>{
     const oApp = doc.querySelector('#app');
     const currentNews = JSON.parse(localStorage.getItem('currentNews'));
@@ -25,13 +26,13 @@ import Follow from '../components/Follow/index.js';
     // 点击收藏图标的逻辑
     function doFollow(status) {
         let followedList = JSON.parse(localStorage.getItem('followedList') || '[]');
-        console.log('isFollowed: ' + status );
         if(status) {
             // 如果当前新闻已被收藏
             followedList = followedList.filter(item => item.uniquekey !== currentNews.uniquekey);
         }else {
             // 未被收藏
             followedList.push(currentNews);
+            Toast.toast('收藏成功');
         }
         localStorage.setItem('followedList', JSON.stringify(followedList));
     }
