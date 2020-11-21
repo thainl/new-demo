@@ -32,9 +32,22 @@ export default {
             items[this._curIndex].classList.add('current');
         }
     },
+    _handleShadow(oNavBar) {
+        const oApp = document.querySelector('#app');
+        const classList = oNavBar.classList;
+        if(this.scrollWidth <= this.scrollLeft + oApp.scrollWidth) {
+            classList.add('no-shadow');
+        }else {
+            if([...classList].indexOf('no-shadow') !== -1) {
+                classList.remove('no-shadow');
+            }
+        }
+    },
     bindEvent(setType) {
         const oNavBar = document.querySelector('.nav-bar');
         const oItems = oNavBar.querySelectorAll('.item');
+        const oScroll = document.querySelector('.nav-bar .scroll');
         oNavBar.addEventListener('click', this._setNav.bind(this, oItems, setType));
+        oScroll.addEventListener('scroll', this._handleShadow.bind(oScroll, oNavBar));
     }
 };

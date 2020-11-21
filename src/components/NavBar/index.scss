@@ -11,12 +11,17 @@
         content: '';
         display: block;
         position: absolute;
-        top: 4px;
-        right: -5px;
-        height: 27px;
-        width: 5px;
-        background: #eaeaea;
-        box-shadow: -1px 0 5px rgba($color: #000000, $alpha: .25);
+        top: 0px;
+        right: -10px;
+        height: 35px;
+        width: 10px;
+        border-radius: 5px;
+        box-shadow: -5px 0 6px rgba($color: #000000, $alpha: .25);
+        opacity: 1;
+        transition: opacity .3s;
+    }
+    &.no-shadow::after {
+        opacity: 0;
     }
     .scroll {
         position: relative;

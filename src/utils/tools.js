@@ -83,7 +83,7 @@ function reachToBottom(callback) {
     const scrollY = getScrollOffset().y; // 页面滚动的距离
     const viewportH = getViewportOffset().h; // 视口高度
     const documentH = getDocumentOffset().h; // 文档内容实际高度
-    if(scrollY + viewportH === documentH) {
+    if(scrollY + viewportH >= documentH - 5) {
         callback();
     }
 }
@@ -106,4 +106,4 @@ function getUrlQueryValue(key) {
     return res === null ? res : decodeURIComponent(res[2]);
 }
 
-export { formatData, randomNum, tplReplace, scrollToTop, setPageData, reachToBottom, getNewsItemNode, getUrlQueryValue, getDocumentOffset };
+export { formatData, randomNum, tplReplace, scrollToTop, setPageData, reachToBottom, getNewsItemNode, getUrlQueryValue, getDocumentOffset, getScrollOffset, getViewportOffset };

@@ -1,6 +1,6 @@
 import tpl from "./index.tpl";
 import "./index.scss";
-import { tplReplace } from "../../utils/tools";
+import { tplReplace, getDocumentOffset, getViewportOffset } from "../../utils/tools";
 
 export default {
     name: "MoreLoading",
@@ -17,7 +17,8 @@ export default {
     add(oListWrapper, isLoadingMore) {
         const oLoading = oListWrapper.querySelector('.more-loading');
         if(!oLoading) { // loading 不存在才添加
-            oListWrapper.innerHTML += this._tpl(isLoadingMore)
+            oListWrapper.innerHTML += this._tpl(isLoadingMore);
+            window.scrollBy(0, oListWrapper.querySelector('.more-loading').scrollHeight);
         }else {
             return;
         }

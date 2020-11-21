@@ -79,18 +79,21 @@ import ErrorTip from '../components/ErrorTip/index.js';
         const listTpl = NewsList.listTpl({ data, pageNum });
         oNewsListWrapper.innerHTML += listTpl;
         NewsList.imgShow(); // 显示图片
+        config.isLoadingMore = false;
     }
 
     // 上拉获取更多新闻
     function getMoreList() {
         // 加锁，不能频繁触发
-        if(!config.isLoadingMore) {
-            clearTimeout(loadMoreTimer);
+        // alert(config.isLoadingMore);
+        if(!config.isLoadingMore && newsData[config.type]  && config.pageNum <= newsData[config.type].length) {
             config.isLoadingMore = true;
             config.pageNum ++; // 页数+1
             if(config.pageNum >= newsData[config.type].length) {
                 MoreLoading.add(oNewsListWrapper, false); // loading 提示已经加载全部
+                config.isLoadingMore = false;
             }else {
+                clearTimeout(loadMoreTimer);
                 MoreLoading.add(oNewsListWrapper, true); // loading 提示加载动画图标
                 loadMoreTimer = setTimeout(() => {
                     renderNewsList(newsData[config.type][config.pageNum]);

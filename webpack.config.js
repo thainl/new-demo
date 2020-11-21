@@ -144,8 +144,8 @@ module.exports = {
         compress: true,
         // 端口号
         port: 3002,
-        // 域名
-        host: 'localhost',
+        // 域名, 0.0.0.0表示局域网可以访问
+        host: '0.0.0.0',
     },
     devtool: 'source-map',
     // devtool: 'hidden-source-map',
