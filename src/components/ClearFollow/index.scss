@@ -1,9 +1,10 @@
 .clear-follow {
-    position: fixed;
+    position: absolute;
     top: 11px;
     right: 12px;
     z-index: 100;
     font-size: 22px;
     transition: color .3s;
     color: #fff;
+    cursor: pointer;
 }
